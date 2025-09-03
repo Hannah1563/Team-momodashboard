@@ -1,22 +1,21 @@
 # Team-momodashboard
 this is for team collaboration
-Objective:
-In this continuous formative assessment, you will demonstrate your ability to design and develop an enterprise-level fullstack application. Your task is to process MoMo SMS data in XML format, clean and categorize the data, store it in a relational database, and build a frontend interface to analyze and visualize the data. This assignment tests your skills in backend data processing, database management, and frontend development.
 
-This first week's assignment will help you practice collaborative development workflows by setting up your team’s shared workspace, defining your system architecture, and organizing tasks using Agile practices.
+M-money Dashboard
 
-Tasks
-Team GitHub Repository
+An enterprise-level full-stack application for processing and visualizing mobile money transactions.
 
-One member should create a team repository on GitHub.
+✅ Project Overview
+Team Name
 
-Invite all teammates as collaborators.
+[Your Team Name]
 
-Add a README.md file with your team name, project description, and member list.
+Project Description
 
-Project Organization
-Organize your project taking inspiration from the following structure. You don't need to have the files yet, but organize your directory in a way that makes sense
-.
+This project involves processing MoMo SMS data in XML format, cleaning and categorizing the data, storing it in a relational database, and building a frontend interface to analyze and visualize the data.
+
+🗂️ Project Structure
+MOMO-Dashboard/
 ├── README.md                         # Setup, run, overview
 ├── .env.example                      # DATABASE_URL or path to SQLite
 ├── requirements.txt                  # lxml/ElementTree, dateutil, (FastAPI optional)
@@ -55,22 +54,51 @@ Organize your project taking inspiration from the following structure. You don't
     ├── test_parse_xml.py             # Small unit tests
     ├── test_clean_normalize.py
     └── test_categorize.py
-High Level System Architecture
-Use a tool like Draw.ioLinks to an external site. or MiroLinks to an external site. to create a high-level draft system architecture
-Put the link of the design in your README 
-Scrum Board Setup
 
-Create a Scrum board for your team (you can use GitHub Projects, Trello, or Jira).
+🔗 Links
 
-Add at least three columns: To Do, In Progress, Done.
+GitHub Repository: [Insert your GitHub repository link here]
 
-Populate the board with initial tasks for your project (e.g., repo setup, architecture diagram, research).
+System Architecture Diagram: [Insert link to your architecture diagram here]
 
-Share the board link in your README.md file.
+Scrum Board: [Insert link to your Scrum board here]
 
-Deliverables (to submit):
-Link to your GitHub repository (with team members added).
+🧪 Setup and Usage
 
-Architecture diagram file/image in the repo.
+Clone the Repository:
 
-Link to your Scrum board (added inside README.md).
+git clone [Your GitHub Repository URL]
+cd MOMO-Dashboard
+
+
+Install Dependencies:
+
+pip install -r requirements.txt
+
+
+Run the ETL Process:
+
+python etl/run.py --xml data/raw/momo.xml
+
+
+Serve the Frontend:
+
+python -m http.server 8000
+
+
+Access the dashboard at http://localhost:8000
+.
+
+👥 Contributors
+
+[Your Name]
+
+[Teammate 1 Name]
+
+[Teammate 2 Name]
+
+[Teammate 3 Name]
+
+📄 License
+
+MIT License
