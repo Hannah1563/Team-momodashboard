@@ -13,37 +13,21 @@ Team Name
 Project Description
 
 This project involves processing MoMo SMS data in XML format, cleaning and categorizing the data, storing it in a relational database, and building a frontend interface to analyze and visualize the data.
-
-🗂️ Project Structure
 MOMO-Dashboard/
 ├── README.md                         # Setup, run, overview
-
 ├── .env.example                      # DATABASE_URL or path to SQLite
-
 ├── requirements.txt                  # lxml/ElementTree, dateutil, (FastAPI optional)
-
 ├── index.html                        # Dashboard entry (static)
-
 ├── web/
-
 │   ├── styles.css                    # Dashboard styling
-
 │   ├── chart_handler.js              # Fetch + render charts/tables
-
 │   └── assets/                       # Images/icons (optional)
-
 ├── data/
-
 │   ├── raw/                          # Provided XML input (git-ignored)
-
 │   │   └── momo.xml
-
 │   ├── processed/                    # Cleaned/derived outputs for frontend
-
 │   │   └── dashboard.json            # Aggregates the dashboard reads
-
 │   ├── db.sqlite3                    # SQLite DB file
-
 │   └── logs/
 │       ├── etl.log                   # Structured ETL logs
 │       └── dead_letter/              # Unparsed/ignored XML snippets
@@ -68,6 +52,7 @@ MOMO-Dashboard/
     ├── test_parse_xml.py             # Small unit tests
     ├── test_clean_normalize.py
     └── test_categorize.py
+
 
 🔗 Links
 
