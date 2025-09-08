@@ -60,7 +60,7 @@ GitHub Repository: [https://github.com/Hannah1563/Team-momodashboard.git]
 
 System Architecture Diagram: [Insert link to your architecture diagram here]
 
-Scrum Board: [Insert link to your Scrum board here]
+Trello Board: [https://trello.com/invite/b/68be95de19b85650e16f8e5a/ATTI35a0f9a81f8e1e87b1503d0cf8cb26b7A96AEAA4/my-trello-board]
 
 🧪 Setup and Usage
 
