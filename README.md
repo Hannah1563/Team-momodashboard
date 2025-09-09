@@ -1,7 +1,7 @@
 # MoMo SMS Data Analytics Platform
 
 ## Team Information
-**Team Name:** Data Analytics Squad
+**Team Name:** Team 7
 
 **Project Description:** 
 An enterprise-level full-stack application designed to process MoMo SMS data in XML format, clean and categorize transactions, store data in a relational database, and provide a comprehensive frontend interface for data analysis and visualization.
