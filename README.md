@@ -1,5 +1,5 @@
 # Team-momodashboard
-this is for team collaboration
+This is for team collaboration
 
 M-money Dashboard
 
@@ -8,12 +8,17 @@ An enterprise-level full-stack application for processing and visualizing mobile
 ✅ Project Overview
 Team Name
 
-[Your Team Name]
+TUYISHIMIRE Ishimwe Hannah
+BYIRINGIRO Saad
+Bienvenue cedric
 
 Project Description
 
 This project involves processing MoMo SMS data in XML format, cleaning and categorizing the data, storing it in a relational database, and building a frontend interface to analyze and visualize the data.
 MOMO-Dashboard/
+
+Project Structure
+
 ├── README.md                         # Setup, run, overview
 ├── .env.example                      # DATABASE_URL or path to SQLite
 ├── requirements.txt                  # lxml/ElementTree, dateutil, (FastAPI optional)
@@ -62,42 +67,25 @@ System Architecture Diagram: [Insert link to your architecture diagram here]
 
 Trello Board: [https://trello.com/invite/b/68be95de19b85650e16f8e5a/ATTI35a0f9a81f8e1e87b1503d0cf8cb26b7A96AEAA4/my-trello-board]
 
-🧪 Setup and Usage
 
-Clone the Repository:
-
-git clone [Your GitHub Repository URL]
-cd MOMO-Dashboard
-
-
-Install Dependencies:
-
-pip install -r requirements.txt
-
-
-Run the ETL Process:
-
-python etl/run.py --xml data/raw/momo.xml
-
-
-Serve the Frontend:
-
-python -m http.server 8000
-
-
-Access the dashboard at http://localhost:8000
-.
 
 👥 Contributors
 
-[Your Name]
 
-[Teammate 1 Name]
+TUYISHIMIRE Ishimwe Hannah
 
-[Teammate 2 Name]
+BIRINGIRO Saad
 
-[Teammate 3 Name]
+BIENVENUE Cedric
 
 📄 License
+MIT License
+
+Author
+_Bought to life by :Hannah Tuyishimire Ishimwe
+                   Saad Byiringiro
+                   Cedric Bienvenue
+                   
+Created from a desire to understand and manage MOMO transactions better.
 
 MIT License
