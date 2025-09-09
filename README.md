@@ -22,13 +22,9 @@ MOMO-Dashboard/
 Project Structure
 
 ├── README.md                         # Setup, run, overview
-
 ├── .env.example                      # DATABASE_URL or path to SQLite
-
 ├── requirements.txt                  # lxml/ElementTree, dateutil, (FastAPI optional)
-
 ├── index.html                        # Dashboard entry (static)
-
 ├── web/
 │   ├── styles.css                    # Dashboard styling
 │   ├── chart_handler.js              # Fetch + render charts/tables
