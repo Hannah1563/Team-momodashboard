@@ -9,7 +9,9 @@ An enterprise-level full-stack application for processing and visualizing mobile
 Team Name
 
 TUYISHIMIRE Ishimwe Hannah
+
 BYIRINGIRO Saad
+
 Bienvenue cedric
 
 Project Description
@@ -20,9 +22,13 @@ MOMO-Dashboard/
 Project Structure
 
 ├── README.md                         # Setup, run, overview
+
 ├── .env.example                      # DATABASE_URL or path to SQLite
+
 ├── requirements.txt                  # lxml/ElementTree, dateutil, (FastAPI optional)
+
 ├── index.html                        # Dashboard entry (static)
+
 ├── web/
 │   ├── styles.css                    # Dashboard styling
 │   ├── chart_handler.js              # Fetch + render charts/tables
