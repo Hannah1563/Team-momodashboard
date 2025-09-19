@@ -1,23 +1,28 @@
 # MoMo SMS Data Analytics Platform
 
 ## Team Information
+
 **Team Name:** Team 7
 
-**Project Description:** 
+**Project Description:**
 An enterprise-level full-stack application designed to process MoMo SMS data in XML format, clean and categorize transactions, store data in a relational database, and provide a comprehensive frontend interface for data analysis and visualization.
 
 **Team Members:**
+
 - TUYISHIMIRE Ishimwe Hannah
-- BYIRINGIRO Saad  
+- BYIRINGIRO Saad
 - BIENVENUE Cedric
 
 ## Project Overview
+
 This application processes Mobile Money (MoMo) transaction data from SMS notifications in XML format, performing ETL operations to clean, normalize, and categorize the data before storing it in a SQLite database. The frontend provides interactive dashboards and visualizations for transaction analysis.
 
 ## System Architecture
+
 [**Architecture Diagram**](https://drive.google.com/file/d/1eU6X-h50mTTEokCH-wUGPPrrBe-h7zKN/view?usp=sharing)
 
 ## Project Structure
+
 ```
 .
 ├── README.md                         # Setup, run, overview
@@ -61,11 +66,13 @@ This application processes Mobile Money (MoMo) transaction data from SMS notific
 ```
 
 ## Prerequisites
+
 - Python 3.8+
 - SQLite3
 - Modern web browser
 
 ## Features
+
 - **XML Data Processing:** Parse and validate MoMo SMS data from XML files
 - **Data Cleaning:** Normalize amounts, dates, and phone numbers
 - **Transaction Categorization:** Automatic categorization based on configurable rules
@@ -75,11 +82,61 @@ This application processes Mobile Money (MoMo) transaction data from SMS notific
 - **Error Handling:** Comprehensive logging and dead letter queue for failed records
 
 ## Scrum Board
+
 **Project Management:** [Trello Board](https://trello.com/invite/b/68be95de19b85650e16f8e5a/ATTI35a0f9a81f8e1e87b1503d0cf8cb26b7A96AEAA4/my-trello-board)
 
+## Database Design
+
+### Database Schema
+
+Our MoMo SMS data processing system uses a normalized MySQL database design with four core entities:
+
+#### Core Tables:
+
+1. **Users** - Customer information with phone numbers and contact details
+2. **Transactions** - Main transaction records with amounts, timestamps, and status
+3. **Transaction_Categories** - Transaction type definitions (Transfer, Payment, etc.)
+4. **System_Logs** - Audit trail and system monitoring logs
+
+### Database Features:
+
+- **Referential Integrity:** Foreign key constraints ensure data consistency
+- **Performance Optimization:** Strategic indexes on frequently queried fields
+- **Data Validation:** CHECK constraints for phone numbers, email formats, and business rules
+- **Audit Trail:** Comprehensive logging for compliance and debugging
+- **Scalability:** Normalized design supports growth and additional transaction types
+
+### Sample Data:
+
+The database includes sample data with:
+
+- 8 sample users with Rwandan phone numbers
+- 8 transaction categories covering all major MoMo operations
+- 8 sample transactions with realistic amounts and scenarios
+- 12 system log entries demonstrating various event types
+
+### JSON Data Modeling:
+
+Complete JSON schemas are provided for:
+
+- Individual entity representations
+- Complex nested objects with related data
+- API response formats
+- Analytics dashboard data structures
+- SQL-to-JSON mapping documentation
+
+### Files:
+
+- `database/database_setup.sql` - Complete database schema with sample data
+- `examples/json_schemas.json` - JSON representations and API formats
+- `docs/data_dictionary.md` - Detailed table and column documentation
+- `docs/design_rationale.md` - Database design decisions and justifications
+- `docs/erd_diagram.png` - Visual entity relationship diagram
+
 ## Technology Stack
+
 - **Backend:** Python 3.8+, FastAPI (optional)
-- **Database:** SQLite3
+- **Database:** MySQL 8.0+ (Week 2), SQLite3 (Future implementation)
 - **Frontend:** HTML5, CSS3, JavaScript (Vanilla)
 - **Data Processing:** lxml/ElementTree, python-dateutil
 - **Visualization:** Chart.js or D3.js
