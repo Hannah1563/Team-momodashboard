@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sms_data>
+    <transaction id="1">
+        <type>Transfer</type>
+        <amount>5000</amount>
+        <currency>RWF</currency>
+        <sender>+250788123456</sender>
+        <receiver>+250789234567</receiver>
+        <timestamp>2024-09-15T10:30:00Z</timestamp>
+        <status>Completed</status>
+        <reference>TXN001234567</reference>
+        <description>Payment for lunch</description>
+    </transaction>
+    
+    <transaction id="2">
+        <type>Transfer</type>
+        <amount>15000</amount>
+        <currency>RWF</currency>
+        <sender>+250789234567</sender>
+        <receiver>+250790345678</receiver>
+        <timestamp>2024-09-15T14:20:00Z</timestamp>
+        <status>Completed</status>
+        <reference>TXN001234568</reference>
+        <description>Family support</description>
+    </transaction>
+    
+    <transaction id="3">
+        <type>Payment</type>
+        <amount>25000</amount>
+        <currency>RWF</currency>
+        <sender>+250790345678</sender>
+        <receiver>+250791456789</receiver>
+        <timestamp>2024-09-16T09:15:00Z</timestamp>
+        <status>Completed</status>
+        <reference>TXN001234569</reference>
+        <description>Market shopping payment</description>
+    </transaction>
+    
+    <transaction id="4">
+        <type>Bill Payment</type>
+        <amount>12000</amount>
+        <currency>RWF</currency>
+        <sender>+250791456789</sender>
+        <receiver>+250792567890</receiver>
+        <timestamp>2024-09-16T16:45:00Z</timestamp>
+        <status>Completed</status>
+        <reference>TXN001234570</reference>
+        <description>Electricity bill payment</description>
+    </transaction>
+    
+    <transaction id="5">
+        <type>Airtime Purchase</type>
+        <amount>5000</amount>
+        <currency>RWF</currency>
+        <sender>+250792567890</sender>
+        <receiver>+250793678901</receiver>
+        <timestamp>2024-09-17T11:30:00Z</timestamp>
+        <status>Completed</status>
+        <reference>TXN001234571</reference>
+        <description>Airtime top-up</description>
+    </transaction>
+    
+    <transaction id="6">
+        <type>Transfer</type>
+        <amount>8000</amount>
+        <currency>RWF</currency>
+        <sender>+250793678901</sender>
+        <receiver>+250794789012</receiver>
+        <timestamp>2024-09-17T13:20:00Z</timestamp>
+        <status>Completed</status>
+        <reference>TXN001234572</reference>
+        <description>Transport money</description>
+    </transaction>
+    
+    <transaction id="7">
+        <type>Deposit</type>
+        <amount>50000</amount>
+        <currency>RWF</currency>
+        <sender>+250794789012</sender>
+        <receiver>+250795890123</receiver>
+        <timestamp>2024-09-18T08:00:00Z</timestamp>
+        <status>Completed</status>
+        <reference>TXN001234573</reference>
+        <description>Salary deposit</description>
+    </transaction>
+    
+    <transaction id="8">
+        <type>Withdrawal</type>
+        <amount>20000</amount>
+        <currency>RWF</currency>
+        <sender>+250795890123</sender>
+        <receiver>+250788123456</receiver>
+        <timestamp>2024-09-18T17:30:00Z</timestamp>
+        <status>Completed</status>
+        <reference>TXN001234574</reference>
+        <description>Cash withdrawal</description>
+    </transaction>
+    
+    <transaction id="9">
+        <type>Transfer</type>
+        <amount>7500</amount>
+        <currency>RWF</currency>
+        <sender>+250788123456</sender>
+        <receiver>+250789234567</receiver>
+        <timestamp>2024-09-19T12:15:00Z</timestamp>
+        <status>Completed</status>
+        <reference>TXN001234575</reference>
+        <description>Emergency fund</description>
+    </transaction>
+    
+    <transaction id="10">
+        <type>Payment</type>
+        <amount>18000</amount>
+        <currency>RWF</currency>
+        <sender>+250789234567</sender>
+        <receiver>+250790345678</receiver>
+        <timestamp>2024-09-19T15:45:00Z</timestamp>
+        <status>Completed</status>
+        <reference>TXN001234576</reference>
+        <description>School fees payment</description>
+    </transaction>
+    
+    <transaction id="11">
+        <type>Bill Payment</type>
+        <amount>8500</amount>
+        <currency>RWF</currency>
+        <sender>+250790345678</sender>
+        <receiver>+250791456789</receiver>
+        <timestamp>2024-09-20T09:30:00Z</timestamp>
+        <status>Completed</status>
+        <reference>TXN001234577</reference>
+        <description>Water bill payment</description>
+    </transaction>
+    
+    <transaction id="12">
+        <type>Airtime Purchase</type>
+        <amount>3000</amount>
+        <currency>RWF</currency>
+        <sender>+250791456789</sender>
+        <receiver>+250792567890</receiver>
+        <timestamp>2024-09-20T14:20:00Z</timestamp>
+        <status>Completed</status>
+        <reference>TXN001234578</reference>
+        <description>Data bundle purchase</description>
+    </transaction>
+    
+    <transaction id="13">
+        <type>Transfer</type>
+        <amount>12000</amount>
+        <currency>RWF</currency>
+        <sender>+250792567890</sender>
+        <receiver>+250793678901</receiver>
+        <timestamp>2024-09-21T11:00:00Z</timestamp>
+        <status>Completed</status>
+        <reference>TXN001234579</reference>
+        <description>Medical expenses</description>
+    </transaction>
+    
+    <transaction id="14">
+        <type>Payment</type>
+        <amount>22000</amount>
+        <currency>RWF</currency>
+        <sender>+250793678901</sender>
+        <receiver>+250794789012</receiver>
+        <timestamp>2024-09-21T16:30:00Z</timestamp>
+        <status>Completed</status>
+        <reference>TXN001234580</reference>
+        <description>Restaurant payment</description>
+    </transaction>
+    
+    <transaction id="15">
+        <type>Deposit</type>
+        <amount>30000</amount>
+        <currency>RWF</currency>
+        <sender>+250794789012</sender>
+        <receiver>+250795890123</receiver>
+        <timestamp>2024-09-22T08:45:00Z</timestamp>
+        <status>Completed</status>
+        <reference>TXN001234581</reference>
+        <description>Business deposit</description>
+    </transaction>
+    
+    <transaction id="16">
+        <type>Withdrawal</type>
+        <amount>15000</amount>
+        <currency>RWF</currency>
+        <sender>+250795890123</sender>
+        <receiver>+250788123456</receiver>
+        <timestamp>2024-09-22T13:15:00Z</timestamp>
+        <status>Completed</status>
+        <reference>TXN001234582</reference>
+        <description>ATM withdrawal</description>
+    </transaction>
+    
+    <transaction id="17">
+        <type>Transfer</type>
+        <amount>9500</amount>
+        <currency>RWF</currency>
+        <sender>+250788123456</sender>
+        <receiver>+250789234567</receiver>
+        <timestamp>2024-09-23T10:20:00Z</timestamp>
+        <status>Completed</status>
+        <reference>TXN001234583</reference>
+        <description>Gift money</description>
+    </transaction>
+    
+    <transaction id="18">
+        <type>Payment</type>
+        <amount>16000</amount>
+        <currency>RWF</currency>
+        <sender>+250789234567</sender>
+        <receiver>+250790345678</receiver>
+        <timestamp>2024-09-23T14:50:00Z</timestamp>
+        <status>Completed</status>
+        <reference>TXN001234584</reference>
+        <description>Online shopping</description>
+    </transaction>
+    
+    <transaction id="19">
+        <type>Bill Payment</type>
+        <amount>11000</amount>
+        <currency>RWF</currency>
+        <sender>+250790345678</sender>
+        <receiver>+250791456789</receiver>
+        <timestamp>2024-09-24T07:30:00Z</timestamp>
+        <status>Completed</status>
+        <reference>TXN001234585</reference>
+        <description>Internet bill payment</description>
+    </transaction>
+    
+    <transaction id="20">
+        <type>Airtime Purchase</type>
+        <amount>4000</amount>
+        <currency>RWF</currency>
+        <sender>+250791456789</sender>
+        <receiver>+250792567890</receiver>
+        <timestamp>2024-09-24T12:45:00Z</timestamp>
+        <status>Completed</status>
+        <reference>TXN001234586</reference>
+        <description>Voice bundle purchase</description>
+    </transaction>
+    
+    <transaction id="21">
+        <type>Transfer</type>
+        <amount>13500</amount>
+        <currency>RWF</currency>
+        <sender>+250792567890</sender>
+        <receiver>+250793678901</receiver>
+        <timestamp>2024-09-25T09:15:00Z</timestamp>
+        <status>Completed</status>
+        <reference>TXN001234587</reference>
+        <description>Rent payment</description>
+    </transaction>
+    
+    <transaction id="22">
+        <type>Payment</type>
+        <amount>28000</amount>
+        <currency>RWF</currency>
+        <sender>+250793678901</sender>
+        <receiver>+250794789012</receiver>
+        <timestamp>2024-09-25T15:20:00Z</timestamp>
+        <status>Completed</status>
+        <reference>TXN001234588</reference>
+        <description>Fuel payment</description>
+    </transaction>
+    
+    <transaction id="23">
+        <type>Deposit</type>
+        <amount>45000</amount>
+        <currency>RWF</currency>
+        <sender>+250794789012</sender>
+        <receiver>+250795890123</receiver>
+        <timestamp>2024-09-26T08:30:00Z</timestamp>
+        <status>Completed</status>
+        <reference>TXN001234589</reference>
+        <description>Investment deposit</description>
+    </transaction>
+    
+    <transaction id="24">
+        <type>Withdrawal</type>
+        <amount>25000</amount>
+        <currency>RWF</currency>
+        <sender>+250795890123</sender>
+        <receiver>+250788123456</receiver>
+        <timestamp>2024-09-26T12:00:00Z</timestamp>
+        <status>Completed</status>
+        <reference>TXN001234590</reference>
+        <description>Emergency withdrawal</description>
+    </transaction>
+    
+    <transaction id="25">
+        <type>Transfer</type>
+        <amount>6500</amount>
+        <currency>RWF</currency>
+        <sender>+250788123456</sender>
+        <receiver>+250789234567</receiver>
+        <timestamp>2024-09-27T11:45:00Z</timestamp>
+        <status>Completed</status>
+        <reference>TXN001234591</reference>
+        <description>Small transfer</description>
+    </transaction>
+</sms_data>

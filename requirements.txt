@@ -1,0 +1,24 @@
+# MoMo SMS Data Analytics Platform - Requirements
+# REST API Implementation with DSA Integration
+
+# Core Python libraries (included in standard library)
+# - xml.etree.ElementTree (XML parsing)
+# - json (JSON handling)
+# - http.server (REST API server)
+# - base64 (Basic Authentication)
+# - urllib.parse (URL parsing)
+# - time (Performance measurement)
+# - random (Test data generation)
+# - os, sys (System operations)
+
+# Optional dependencies for enhanced functionality
+requests>=2.28.0          # For API testing (optional)
+lxml>=4.9.0               # Alternative XML parser (optional)
+python-dateutil>=2.8.0   # Enhanced date parsing (optional)
+
+# Development and testing dependencies
+pytest>=7.0.0            # Unit testing framework (optional)
+pytest-cov>=4.0.0        # Coverage reporting (optional)
+
+# Note: The core functionality uses only Python standard library
+# The optional dependencies provide enhanced features and testing capabilities

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "team": "Team 7 - Hannah, Saad, Cedric",
   "purpose": "Demonstrates JSON representations of database entities for API responses and data serialization",
-  
+
   "entity_schemas": {
     "user": {
       "description": "Individual user/customer entity representation",
@@ -17,11 +17,30 @@
       "schema": {
         "type": "object",
         "properties": {
-          "user_id": {"type": "integer", "description": "Unique user identifier"},
-          "full_name": {"type": "string", "maxLength": 100, "description": "Customer full name"},
-          "phone_number": {"type": "string", "pattern": "^[+]?[0-9]{10,15}$", "description": "Mobile money phone number"},
-          "email": {"type": "string", "format": "email", "description": "Optional email address"},
-          "created_at": {"type": "string", "format": "date-time", "description": "Account creation timestamp"}
+          "user_id": {
+            "type": "integer",
+            "description": "Unique user identifier"
+          },
+          "full_name": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Customer full name"
+          },
+          "phone_number": {
+            "type": "string",
+            "pattern": "^[+]?[0-9]{10,15}$",
+            "description": "Mobile money phone number"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Optional email address"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Account creation timestamp"
+          }
         },
         "required": ["user_id", "full_name", "phone_number"]
       }
@@ -38,14 +57,33 @@
       "schema": {
         "type": "object",
         "properties": {
-          "category_id": {"type": "integer", "description": "Unique category identifier"},
+          "category_id": {
+            "type": "integer",
+            "description": "Unique category identifier"
+          },
           "category_name": {
-            "type": "string", 
-            "enum": ["Transfer", "Payment", "Deposit", "Withdrawal", "Bill Payment", "Airtime Purchase", "Cash In", "Cash Out"],
+            "type": "string",
+            "enum": [
+              "Transfer",
+              "Payment",
+              "Deposit",
+              "Withdrawal",
+              "Bill Payment",
+              "Airtime Purchase",
+              "Cash In",
+              "Cash Out"
+            ],
             "description": "Category name"
           },
-          "description": {"type": "string", "description": "Category description"},
-          "created_at": {"type": "string", "format": "date-time", "description": "Category creation timestamp"}
+          "description": {
+            "type": "string",
+            "description": "Category description"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Category creation timestamp"
+          }
         },
         "required": ["category_id", "category_name"]
       }
@@ -58,7 +96,7 @@
         "sender_id": 1,
         "receiver_id": 2,
         "category_id": 1,
-        "amount": 5000.00,
+        "amount": 5000.0,
         "currency": "RWF",
         "timestamp": "2024-09-15T10:30:00Z",
         "status": "Completed",
@@ -68,18 +106,61 @@
       "schema": {
         "type": "object",
         "properties": {
-          "transaction_id": {"type": "integer", "description": "Unique transaction identifier"},
-          "sender_id": {"type": "integer", "description": "ID of user sending money"},
-          "receiver_id": {"type": "integer", "description": "ID of user receiving money"},
-          "category_id": {"type": "integer", "description": "Transaction category ID"},
-          "amount": {"type": "number", "minimum": 0.01, "description": "Transaction amount"},
-          "currency": {"type": "string", "enum": ["RWF", "USD", "EUR", "GBP"], "description": "Currency code"},
-          "timestamp": {"type": "string", "format": "date-time", "description": "Transaction timestamp"},
-          "status": {"type": "string", "enum": ["Pending", "Completed", "Failed", "Cancelled"], "description": "Transaction status"},
-          "reference_number": {"type": "string", "description": "Unique reference from MoMo provider"},
-          "description": {"type": "string", "description": "Transaction description"}
+          "transaction_id": {
+            "type": "integer",
+            "description": "Unique transaction identifier"
+          },
+          "sender_id": {
+            "type": "integer",
+            "description": "ID of user sending money"
+          },
+          "receiver_id": {
+            "type": "integer",
+            "description": "ID of user receiving money"
+          },
+          "category_id": {
+            "type": "integer",
+            "description": "Transaction category ID"
+          },
+          "amount": {
+            "type": "number",
+            "minimum": 0.01,
+            "description": "Transaction amount"
+          },
+          "currency": {
+            "type": "string",
+            "enum": ["RWF", "USD", "EUR", "GBP"],
+            "description": "Currency code"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Transaction timestamp"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["Pending", "Completed", "Failed", "Cancelled"],
+            "description": "Transaction status"
+          },
+          "reference_number": {
+            "type": "string",
+            "description": "Unique reference from MoMo provider"
+          },
+          "description": {
+            "type": "string",
+            "description": "Transaction description"
+          }
         },
-        "required": ["transaction_id", "sender_id", "receiver_id", "category_id", "amount", "currency", "timestamp", "status"]
+        "required": [
+          "transaction_id",
+          "sender_id",
+          "receiver_id",
+          "category_id",
+          "amount",
+          "currency",
+          "timestamp",
+          "status"
+        ]
       }
     },
 
@@ -96,12 +177,31 @@
       "schema": {
         "type": "object",
         "properties": {
-          "log_id": {"type": "integer", "description": "Unique log identifier"},
-          "transaction_id": {"type": "integer", "nullable": true, "description": "Related transaction ID"},
-          "log_type": {"type": "string", "enum": ["INFO", "ERROR", "WARNING", "SUCCESS", "DEBUG"], "description": "Log level"},
-          "message": {"type": "string", "description": "Log message"},
-          "created_at": {"type": "string", "format": "date-time", "description": "Log timestamp"},
-          "user_id": {"type": "integer", "nullable": true, "description": "Related user ID"}
+          "log_id": {
+            "type": "integer",
+            "description": "Unique log identifier"
+          },
+          "transaction_id": {
+            "type": "integer",
+            "nullable": true,
+            "description": "Related transaction ID"
+          },
+          "log_type": {
+            "type": "string",
+            "enum": ["INFO", "ERROR", "WARNING", "SUCCESS", "DEBUG"],
+            "description": "Log level"
+          },
+          "message": { "type": "string", "description": "Log message" },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Log timestamp"
+          },
+          "user_id": {
+            "type": "integer",
+            "nullable": true,
+            "description": "Related user ID"
+          }
         },
         "required": ["log_id", "log_type", "message", "created_at"]
       }
@@ -114,7 +214,7 @@
       "example": {
         "transaction": {
           "transaction_id": 1,
-          "amount": 5000.00,
+          "amount": 5000.0,
           "currency": "RWF",
           "timestamp": "2024-09-15T10:30:00Z",
           "status": "Completed",
@@ -167,16 +267,16 @@
         },
         "transaction_summary": {
           "total_transactions": 15,
-          "total_sent": 125000.00,
-          "total_received": 85000.00,
-          "net_balance": -40000.00,
+          "total_sent": 125000.0,
+          "total_received": 85000.0,
+          "net_balance": -40000.0,
           "currency": "RWF",
           "last_transaction_date": "2024-09-18T17:30:00Z",
           "transaction_categories": {
-            "Transfer": {"count": 8, "total_amount": 65000.00},
-            "Payment": {"count": 4, "total_amount": 45000.00},
-            "Bill Payment": {"count": 2, "total_amount": 15000.00},
-            "Airtime Purchase": {"count": 1, "total_amount": 5000.00}
+            "Transfer": { "count": 8, "total_amount": 65000.0 },
+            "Payment": { "count": 4, "total_amount": 45000.0 },
+            "Bill Payment": { "count": 2, "total_amount": 15000.0 },
+            "Airtime Purchase": { "count": 1, "total_amount": 5000.0 }
           }
         }
       }
@@ -192,8 +292,8 @@
         },
         "summary_stats": {
           "total_transactions": 1250,
-          "total_volume": 15750000.00,
-          "average_transaction": 12600.00,
+          "total_volume": 15750000.0,
+          "average_transaction": 12600.0,
           "active_users": 45,
           "currency": "RWF"
         },
@@ -201,25 +301,25 @@
           {
             "category_name": "Transfer",
             "transaction_count": 650,
-            "total_amount": 8500000.00,
+            "total_amount": 8500000.0,
             "percentage": 54.0
           },
           {
             "category_name": "Payment",
             "transaction_count": 320,
-            "total_amount": 4200000.00,
+            "total_amount": 4200000.0,
             "percentage": 26.7
           },
           {
             "category_name": "Bill Payment",
             "transaction_count": 180,
-            "total_amount": 2250000.00,
+            "total_amount": 2250000.0,
             "percentage": 14.3
           },
           {
             "category_name": "Airtime Purchase",
             "transaction_count": 100,
-            "total_amount": 800000.00,
+            "total_amount": 800000.0,
             "percentage": 5.0
           }
         ],
@@ -227,22 +327,22 @@
           {
             "date": "2024-09-15",
             "transaction_count": 280,
-            "total_amount": 3500000.00
+            "total_amount": 3500000.0
           },
           {
             "date": "2024-09-16",
             "transaction_count": 320,
-            "total_amount": 4200000.00
+            "total_amount": 4200000.0
           },
           {
             "date": "2024-09-17",
             "transaction_count": 350,
-            "total_amount": 4500000.00
+            "total_amount": 4500000.0
           },
           {
             "date": "2024-09-18",
             "transaction_count": 300,
-            "total_amount": 3550000.00
+            "total_amount": 3550000.0
           }
         ]
       }
@@ -257,7 +357,7 @@
         "data": {
           "transaction": {
             "transaction_id": 1,
-            "amount": 5000.00,
+            "amount": 5000.0,
             "currency": "RWF",
             "timestamp": "2024-09-15T10:30:00Z",
             "status": "Completed",
@@ -292,7 +392,7 @@
           "transactions": [
             {
               "transaction_id": 1,
-              "amount": 5000.00,
+              "amount": 5000.0,
               "currency": "RWF",
               "timestamp": "2024-09-15T10:30:00Z",
               "status": "Completed",
@@ -332,8 +432,20 @@
     "description": "Mapping between SQL database tables and JSON representations",
     "mappings": {
       "Users table": {
-        "sql_columns": ["user_id", "full_name", "phone_number", "email", "created_at"],
-        "json_properties": ["user_id", "full_name", "phone_number", "email", "created_at"],
+        "sql_columns": [
+          "user_id",
+          "full_name",
+          "phone_number",
+          "email",
+          "created_at"
+        ],
+        "json_properties": [
+          "user_id",
+          "full_name",
+          "phone_number",
+          "email",
+          "created_at"
+        ],
         "transformations": {
           "created_at": "Convert MySQL DATETIME to ISO 8601 format",
           "phone_number": "Maintain as string with validation",
@@ -341,8 +453,30 @@
         }
       },
       "Transactions table": {
-        "sql_columns": ["transaction_id", "sender_id", "receiver_id", "category_id", "amount", "currency", "timestamp", "status", "reference_number", "description"],
-        "json_properties": ["transaction_id", "amount", "currency", "timestamp", "status", "reference_number", "description", "sender", "receiver", "category"],
+        "sql_columns": [
+          "transaction_id",
+          "sender_id",
+          "receiver_id",
+          "category_id",
+          "amount",
+          "currency",
+          "timestamp",
+          "status",
+          "reference_number",
+          "description"
+        ],
+        "json_properties": [
+          "transaction_id",
+          "amount",
+          "currency",
+          "timestamp",
+          "status",
+          "reference_number",
+          "description",
+          "sender",
+          "receiver",
+          "category"
+        ],
         "transformations": {
           "timestamp": "Convert MySQL DATETIME to ISO 8601 format",
           "amount": "Keep as decimal number",
@@ -352,8 +486,22 @@
         }
       },
       "System_Logs table": {
-        "sql_columns": ["log_id", "transaction_id", "log_type", "message", "created_at", "user_id"],
-        "json_properties": ["log_id", "transaction_id", "log_type", "message", "created_at", "user_id"],
+        "sql_columns": [
+          "log_id",
+          "transaction_id",
+          "log_type",
+          "message",
+          "created_at",
+          "user_id"
+        ],
+        "json_properties": [
+          "log_id",
+          "transaction_id",
+          "log_type",
+          "message",
+          "created_at",
+          "user_id"
+        ],
         "transformations": {
           "created_at": "Convert MySQL DATETIME to ISO 8601 format",
           "transaction_id": "Can be null for system events",
