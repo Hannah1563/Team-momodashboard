@@ -1,79 +1,30 @@
 #!/usr/bin/env python3
-"""
-Data Structures & Algorithms Module for MoMo SMS Data Processing
-Implements and compares different search algorithms for transaction data
-"""
 
+import os
 import time
 import random
-from typing import List, Dict, Any, Optional
 from xml_parser import SMSDataParser
-import os
+from typing import List, Dict, Any, Optional
 
 
-class TransactionSearch:
-    """Search algorithms for transaction data"""
-    
+class TransactionSearch:    
     def __init__(self, transactions: List[Dict[str, Any]]):
-        """
-        Initialize with transaction data
-        
-        Args:
-            transactions (List[Dict[str, Any]]): List of transaction dictionaries
-        """
         self.transactions = transactions
         self.transaction_dict = self._build_dictionary()
         
     def _build_dictionary(self) -> Dict[int, Dict[str, Any]]:
-        """
-        Build dictionary for O(1) lookup by transaction ID
-        
-        Returns:
-            Dict[int, Dict[str, Any]]: Dictionary mapping ID to transaction
-        """
         return {transaction['id']: transaction for transaction in self.transactions}
     
     def linear_search_by_id(self, transaction_id: int) -> Optional[Dict[str, Any]]:
-        """
-        Linear search to find transaction by ID
-        Time Complexity: O(n)
-        
-        Args:
-            transaction_id (int): ID of the transaction to find
-            
-        Returns:
-            Optional[Dict[str, Any]]: Transaction data or None if not found
-        """
         for transaction in self.transactions:
             if transaction['id'] == transaction_id:
                 return transaction
         return None
     
     def dictionary_lookup_by_id(self, transaction_id: int) -> Optional[Dict[str, Any]]:
-        """
-        Dictionary lookup to find transaction by ID
-        Time Complexity: O(1)
-        
-        Args:
-            transaction_id (int): ID of the transaction to find
-            
-        Returns:
-            Optional[Dict[str, Any]]: Transaction data or None if not found
-        """
         return self.transaction_dict.get(transaction_id)
     
     def linear_search_by_amount_range(self, min_amount: float, max_amount: float) -> List[Dict[str, Any]]:
-        """
-        Linear search to find transactions within amount range
-        Time Complexity: O(n)
-        
-        Args:
-            min_amount (float): Minimum transaction amount
-            max_amount (float): Maximum transaction amount
-            
-        Returns:
-            List[Dict[str, Any]]: List of matching transactions
-        """
         results = []
         for transaction in self.transactions:
             if min_amount <= transaction['amount'] <= max_amount:
@@ -81,16 +32,6 @@ class TransactionSearch:
         return results
     
     def linear_search_by_type(self, transaction_type: str) -> List[Dict[str, Any]]:
-        """
-        Linear search to find transactions by type
-        Time Complexity: O(n)
-        
-        Args:
-            transaction_type (str): Type of transactions to find
-            
-        Returns:
-            List[Dict[str, Any]]: List of matching transactions
-        """
         results = []
         for transaction in self.transactions:
             if transaction['type'] == transaction_type:
@@ -98,17 +39,6 @@ class TransactionSearch:
         return results
     
     def binary_search_by_amount(self, target_amount: float) -> List[Dict[str, Any]]:
-        """
-        Binary search to find transactions with specific amount
-        Requires sorted data by amount
-        Time Complexity: O(log n)
-        
-        Args:
-            target_amount (float): Amount to search for
-            
-        Returns:
-            List[Dict[str, Any]]: List of transactions with target amount
-        """
         # Sort transactions by amount for binary search
         sorted_transactions = sorted(self.transactions, key=lambda x: x['amount'])
         
@@ -141,28 +71,11 @@ class TransactionSearch:
 
 
 class PerformanceAnalyzer:
-    """Analyze performance of different search algorithms"""
-    
     def __init__(self, search_engine: TransactionSearch):
-        """
-        Initialize with search engine
-        
-        Args:
-            search_engine (TransactionSearch): Search engine instance
-        """
         self.search_engine = search_engine
         self.results = {}
     
     def measure_search_performance(self, num_tests: int = 100) -> Dict[str, Any]:
-        """
-        Measure and compare performance of different search algorithms
-        
-        Args:
-            num_tests (int): Number of test iterations
-            
-        Returns:
-            Dict[str, Any]: Performance analysis results
-        """
         transactions = self.search_engine.transactions
         
         if len(transactions) < 20:
@@ -235,7 +148,6 @@ class PerformanceAnalyzer:
         return results
     
     def print_performance_report(self):
-        """Print detailed performance analysis report"""
         if not self.results:
             print("No performance data available. Run measure_search_performance() first.")
             return
@@ -291,7 +203,6 @@ class PerformanceAnalyzer:
 
 
 def main():
-    """Main function to demonstrate search algorithms"""
     # Get the directory of this script
     script_dir = os.path.dirname(os.path.abspath(__file__))
     project_root = os.path.dirname(script_dir)

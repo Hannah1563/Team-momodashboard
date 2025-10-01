@@ -4,35 +4,30 @@ REST API for MoMo SMS Transaction Data
 Implements CRUD endpoints with Basic Authentication
 """
 
+import os
+import sys
 import json
 import base64
 import urllib.parse
-from http.server import HTTPServer, BaseHTTPRequestHandler
 from typing import Dict, Any, Optional, List
-import os
-import sys
+from http.server import HTTPServer, BaseHTTPRequestHandler
 
 # Add the dsa directory to the path to import our modules
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'dsa'))
 
-from xml_parser import SMSDataParser
-from search_algorithms import TransactionSearch
+from xml_parser import SMSDataParser  # pyright: ignore[reportMissingImports]
+from search_algorithms import TransactionSearch  # pyright: ignore[reportMissingImports]
 
 
-class TransactionAPIHandler(BaseHTTPRequestHandler):
-    """HTTP Request Handler for Transaction API"""
-    
+class TransactionAPIHandler(BaseHTTPRequestHandler):    
     def __init__(self, *args, **kwargs):
-        """Initialize the handler with transaction data"""
         # Load transaction data
         self.transactions = self._load_transaction_data()
         self.search_engine = TransactionSearch(self.transactions)
         super().__init__(*args, **kwargs)
     
     def _load_transaction_data(self) -> List[Dict[str, Any]]:
-        """Load transaction data from XML file"""
         try:
-            # Get the project root directory
             project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
             xml_file_path = os.path.join(project_root, 'data', 'raw', 'modified_sms_v2.xml')
             
@@ -51,26 +46,22 @@ class TransactionAPIHandler(BaseHTTPRequestHandler):
             return []
     
     def _authenticate(self) -> bool:
-        """Check Basic Authentication credentials"""
         auth_header = self.headers.get('Authorization')
         
         if not auth_header or not auth_header.startswith('Basic '):
             return False
         
         try:
-            # Decode the base64 encoded credentials
-            encoded_credentials = auth_header[6:]  # Remove 'Basic ' prefix
+            encoded_credentials = auth_header[6:]
             decoded_credentials = base64.b64decode(encoded_credentials).decode('utf-8')
             username, password = decoded_credentials.split(':', 1)
             
-            # Simple hardcoded credentials (in production, use proper authentication)
             return username == 'admin' and password == 'password123'
             
         except Exception:
             return False
     
-    def _send_response(self, status_code: int, data: Dict[str, Any]):
-        """Send JSON response"""
+    def _send_response(self, status_code: int, data: Dict[str, Any]):   
         self.send_response(status_code)
         self.send_header('Content-Type', 'application/json')
         self.send_header('Access-Control-Allow-Origin', '*')
@@ -82,7 +73,6 @@ class TransactionAPIHandler(BaseHTTPRequestHandler):
         self.wfile.write(response_json.encode('utf-8'))
     
     def _send_error_response(self, status_code: int, error_message: str, error_code: str = None):
-        """Send error response"""
         error_data = {
             "success": False,
             "error": {
@@ -93,7 +83,6 @@ class TransactionAPIHandler(BaseHTTPRequestHandler):
         self._send_response(status_code, error_data)
     
     def _send_success_response(self, data: Any, message: str = None):
-        """Send success response"""
         response_data = {
             "success": True,
             "data": data
@@ -103,7 +92,6 @@ class TransactionAPIHandler(BaseHTTPRequestHandler):
         self._send_response(200, response_data)
     
     def _parse_json_body(self) -> Optional[Dict[str, Any]]:
-        """Parse JSON from request body"""
         try:
             content_length = int(self.headers.get('Content-Length', 0))
             if content_length == 0:
@@ -115,9 +103,7 @@ class TransactionAPIHandler(BaseHTTPRequestHandler):
             return None
     
     def _get_transaction_id_from_path(self) -> Optional[int]:
-        """Extract transaction ID from URL path"""
         try:
-            # Parse URL to remove query parameters
             parsed_url = urllib.parse.urlparse(self.path)
             path_parts = parsed_url.path.strip('/').split('/')
             if len(path_parts) >= 2 and path_parts[0] == 'transactions':
@@ -127,7 +113,6 @@ class TransactionAPIHandler(BaseHTTPRequestHandler):
         return None
     
     def do_OPTIONS(self):
-        """Handle CORS preflight requests"""
         self.send_response(200)
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
@@ -135,12 +120,10 @@ class TransactionAPIHandler(BaseHTTPRequestHandler):
         self.end_headers()
     
     def do_GET(self):
-        """Handle GET requests"""
         if not self._authenticate():
             self._send_error_response(401, "Unauthorized. Please provide valid Basic Authentication credentials.")
             return
         
-        # Parse URL to separate path and query parameters
         parsed_url = urllib.parse.urlparse(self.path)
         path = parsed_url.path
         
@@ -156,7 +139,6 @@ class TransactionAPIHandler(BaseHTTPRequestHandler):
             self._send_error_response(404, "Endpoint not found")
     
     def do_POST(self):
-        """Handle POST requests"""
         if not self._authenticate():
             self._send_error_response(401, "Unauthorized. Please provide valid Basic Authentication credentials.")
             return
@@ -167,12 +149,10 @@ class TransactionAPIHandler(BaseHTTPRequestHandler):
             self._send_error_response(404, "Endpoint not found")
     
     def do_PUT(self):
-        """Handle PUT requests"""
         if not self._authenticate():
             self._send_error_response(401, "Unauthorized. Please provide valid Basic Authentication credentials.")
             return
         
-        # Parse URL to separate path and query parameters
         parsed_url = urllib.parse.urlparse(self.path)
         path = parsed_url.path
         
@@ -186,12 +166,10 @@ class TransactionAPIHandler(BaseHTTPRequestHandler):
             self._send_error_response(404, "Endpoint not found")
     
     def do_DELETE(self):
-        """Handle DELETE requests"""
         if not self._authenticate():
             self._send_error_response(401, "Unauthorized. Please provide valid Basic Authentication credentials.")
             return
         
-        # Parse URL to separate path and query parameters
         parsed_url = urllib.parse.urlparse(self.path)
         path = parsed_url.path
         
@@ -205,9 +183,7 @@ class TransactionAPIHandler(BaseHTTPRequestHandler):
             self._send_error_response(404, "Endpoint not found")
     
     def _handle_get_all_transactions(self):
-        """Handle GET /transactions - List all transactions"""
         try:
-            # Get query parameters
             parsed_url = urllib.parse.urlparse(self.path)
             query_params = urllib.parse.parse_qs(parsed_url.query)
             
@@ -243,7 +219,6 @@ class TransactionAPIHandler(BaseHTTPRequestHandler):
             self._send_error_response(500, f"Internal server error: {str(e)}")
     
     def _handle_get_transaction(self, transaction_id: int):
-        """Handle GET /transactions/{id} - Get specific transaction"""
         try:
             transaction = self.search_engine.dictionary_lookup_by_id(transaction_id)
             
@@ -256,7 +231,6 @@ class TransactionAPIHandler(BaseHTTPRequestHandler):
             self._send_error_response(500, f"Internal server error: {str(e)}")
     
     def _handle_create_transaction(self):
-        """Handle POST /transactions - Create new transaction"""
         try:
             data = self._parse_json_body()
             
@@ -303,7 +277,6 @@ class TransactionAPIHandler(BaseHTTPRequestHandler):
             self._send_error_response(500, f"Internal server error: {str(e)}")
     
     def _handle_update_transaction(self, transaction_id: int):
-        """Handle PUT /transactions/{id} - Update existing transaction"""
         try:
             transaction = self.search_engine.dictionary_lookup_by_id(transaction_id)
             
@@ -336,7 +309,6 @@ class TransactionAPIHandler(BaseHTTPRequestHandler):
             self._send_error_response(500, f"Internal server error: {str(e)}")
     
     def _handle_delete_transaction(self, transaction_id: int):
-        """Handle DELETE /transactions/{id} - Delete transaction"""
         try:
             transaction = self.search_engine.dictionary_lookup_by_id(transaction_id)
             
@@ -357,23 +329,9 @@ class TransactionAPIHandler(BaseHTTPRequestHandler):
 
 
 def run_server(port: int = 8000):
-    """Run the HTTP server"""
     server_address = ('', port)
     httpd = HTTPServer(server_address, TransactionAPIHandler)
-    
-    print(f"MoMo SMS Transaction API Server running on port {port}")
-    print("Available endpoints:")
-    print("  GET    /transactions           - List all transactions")
-    print("  GET    /transactions/{id}      - Get specific transaction")
-    print("  POST   /transactions           - Create new transaction")
-    print("  PUT    /transactions/{id}      - Update existing transaction")
-    print("  DELETE /transactions/{id}     - Delete transaction")
-    print()
-    print("Authentication: Basic Auth (username: admin, password: password123)")
-    print("Example: curl -u admin:password123 http://localhost:8000/transactions")
-    print()
-    print("Press Ctrl+C to stop the server")
-    
+
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:

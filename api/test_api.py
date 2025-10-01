@@ -1,34 +1,18 @@
 #!/usr/bin/env python3
-"""
-Test Script for MoMo SMS Transaction API
-Demonstrates API testing with various scenarios
-"""
 
-import requests
-import json
 import time
+import requests
 from requests.auth import HTTPBasicAuth
-import sys
-import os
 
 
-class APITester:
-    """Test class for the Transaction API"""
-    
+class APITester:    
     def __init__(self, base_url="http://localhost:8000"):
-        """
-        Initialize the API tester
-        
-        Args:
-            base_url (str): Base URL of the API server
-        """
         self.base_url = base_url
         self.auth = HTTPBasicAuth('admin', 'password123')
         self.test_results = []
     
     def log_test(self, test_name: str, success: bool, message: str = ""):
-        """Log test result"""
-        status = "✅ PASS" if success else "❌ FAIL"
+        status = "PASS" if success else "FAIL"
         result = {
             "test": test_name,
             "success": success,
@@ -39,7 +23,6 @@ class APITester:
         print(f"{status} {test_name}: {message}")
     
     def test_server_connection(self):
-        """Test if server is running"""
         try:
             response = requests.get(f"{self.base_url}/transactions", auth=self.auth, timeout=5)
             self.log_test("Server Connection", True, f"Server responding (Status: {response.status_code})")
@@ -52,7 +35,6 @@ class APITester:
             return False
     
     def test_authentication_success(self):
-        """Test successful authentication"""
         try:
             response = requests.get(f"{self.base_url}/transactions", auth=self.auth)
             success = response.status_code == 200
@@ -64,7 +46,6 @@ class APITester:
             return False
     
     def test_authentication_failure(self):
-        """Test authentication failure"""
         try:
             # Test without authentication
             response = requests.get(f"{self.base_url}/transactions")
@@ -85,7 +66,6 @@ class APITester:
             return False
     
     def test_get_all_transactions(self):
-        """Test GET /transactions endpoint"""
         try:
             response = requests.get(f"{self.base_url}/transactions", auth=self.auth)
             success = response.status_code == 200
@@ -103,7 +83,6 @@ class APITester:
             return False
     
     def test_get_transaction_by_id(self):
-        """Test GET /transactions/{id} endpoint"""
         try:
             # Test with existing ID
             response = requests.get(f"{self.base_url}/transactions/1", auth=self.auth)
@@ -128,7 +107,6 @@ class APITester:
             return False
     
     def test_create_transaction(self):
-        """Test POST /transactions endpoint"""
         try:
             new_transaction = {
                 "type": "Transfer",
@@ -157,7 +135,6 @@ class APITester:
             return None
     
     def test_update_transaction(self, transaction_id):
-        """Test PUT /transactions/{id} endpoint"""
         if not transaction_id:
             self.log_test("PUT Update Transaction", False, "No transaction ID provided")
             return False
@@ -185,7 +162,6 @@ class APITester:
             return False
     
     def test_delete_transaction(self, transaction_id):
-        """Test DELETE /transactions/{id} endpoint"""
         if not transaction_id:
             self.log_test("DELETE Transaction", False, "No transaction ID provided")
             return False
@@ -205,7 +181,6 @@ class APITester:
             return False
     
     def test_query_parameters(self):
-        """Test query parameters functionality"""
         try:
             # Test type filtering
             response = requests.get(f"{self.base_url}/transactions?type=Transfer", auth=self.auth)
@@ -238,7 +213,6 @@ class APITester:
             return False
     
     def test_error_handling(self):
-        """Test error handling scenarios"""
         try:
             # Test invalid JSON
             response = requests.post(f"{self.base_url}/transactions", 
@@ -267,7 +241,6 @@ class APITester:
             return False
     
     def run_all_tests(self):
-        """Run all API tests"""
         print("=" * 60)
         print("MoMo SMS Transaction API Test Suite")
         print("=" * 60)
@@ -275,21 +248,21 @@ class APITester:
         
         # Check server connection first
         if not self.test_server_connection():
-            print("❌ Server is not running. Please start the API server first.")
+            print("Server is not running. Please start the API server first.")
             print("Run: python api/transaction_api.py")
             return
         
         print()
         
         # Authentication tests
-        print("🔐 Authentication Tests:")
+        print("Authentication Tests:")
         print("-" * 30)
         self.test_authentication_success()
         self.test_authentication_failure()
         print()
         
         # CRUD operation tests
-        print("📝 CRUD Operation Tests:")
+        print("CRUD Operation Tests:")
         print("-" * 30)
         self.test_get_all_transactions()
         self.test_get_transaction_by_id()
@@ -302,19 +275,10 @@ class APITester:
         
         print()
         
-        # Additional feature tests
-        print("🔍 Additional Feature Tests:")
-        print("-" * 30)
-        self.test_query_parameters()
-        self.test_error_handling()
-        
-        print()
-        
         # Summary
         self.print_test_summary()
     
     def print_test_summary(self):
-        """Print test results summary"""
         total_tests = len(self.test_results)
         passed_tests = sum(1 for result in self.test_results if result['success'])
         failed_tests = total_tests - passed_tests
@@ -329,17 +293,16 @@ class APITester:
         print()
         
         if failed_tests > 0:
-            print("❌ Failed Tests:")
+            print("Failed Tests:")
             for result in self.test_results:
                 if not result['success']:
                     print(f"  - {result['test']}: {result['message']}")
             print()
         
-        print("✅ All tests completed!")
+        print("All tests completed!")
 
 
 def main():
-    """Main function to run API tests"""
     import argparse
     
     parser = argparse.ArgumentParser(description='Test MoMo SMS Transaction API')

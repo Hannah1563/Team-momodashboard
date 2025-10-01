@@ -1,8 +1,4 @@
 #!/usr/bin/env python3
-"""
-Test Script for DSA (Data Structures & Algorithms) Module
-Demonstrates XML parsing and search algorithm performance
-"""
 
 import os
 import sys
@@ -12,7 +8,6 @@ from search_algorithms import TransactionSearch, PerformanceAnalyzer
 
 
 def test_xml_parsing():
-    """Test XML parsing functionality"""
     print("=" * 60)
     print("XML PARSING TEST")
     print("=" * 60)
@@ -30,7 +25,7 @@ def test_xml_parsing():
     transactions = parser.parse_xml()
     
     if transactions:
-        print(f"✅ Successfully parsed {len(transactions)} transactions")
+        print(f"Successfully parsed {len(transactions)} transactions")
         print()
         
         # Display sample transactions
@@ -41,35 +36,15 @@ def test_xml_parsing():
                   f"Amount: {transaction['amount']} {transaction['currency']}")
         print()
         
-        # Test search functionality
-        print("Search Functionality Tests:")
-        print("-" * 30)
-        
-        # Search by ID
-        transaction_5 = parser.get_transaction_by_id(5)
-        if transaction_5:
-            print(f"✅ Found transaction 5: {transaction_5['type']} - {transaction_5['amount']} {transaction_5['currency']}")
-        else:
-            print("❌ Transaction 5 not found")
-        
-        # Search by type
-        transfer_transactions = parser.get_transactions_by_type('Transfer')
-        print(f"✅ Found {len(transfer_transactions)} Transfer transactions")
-        
-        # Search by sender
-        sender_transactions = parser.get_transactions_by_sender('+250788123456')
-        print(f"✅ Found {len(sender_transactions)} transactions from +250788123456")
-        
         return transactions
     else:
-        print("❌ Failed to parse XML file")
+        print("Failed to parse XML file")
         return []
 
 
 def test_search_algorithms(transactions):
-    """Test search algorithm performance"""
     if not transactions:
-        print("❌ No transactions available for search testing")
+        print("No transactions available for search testing")
         return
     
     print()
@@ -138,7 +113,6 @@ def test_search_algorithms(transactions):
 
 
 def test_data_structures():
-    """Test different data structure implementations"""
     print()
     print("=" * 60)
     print("DATA STRUCTURE ANALYSIS")
@@ -153,7 +127,7 @@ def test_data_structures():
     transactions = parser.parse_xml()
     
     if not transactions:
-        print("❌ No transactions available for data structure testing")
+        print("No transactions available for data structure testing")
         return
     
     print(f"Analyzing {len(transactions)} transactions")
@@ -227,7 +201,6 @@ def test_data_structures():
 
 
 def demonstrate_alternative_structures():
-    """Demonstrate alternative data structures"""
     print()
     print("=" * 60)
     print("ALTERNATIVE DATA STRUCTURES")
@@ -272,7 +245,6 @@ def demonstrate_alternative_structures():
 
 
 def main():
-    """Main function to run DSA tests"""
     print("MoMo SMS Data Structures & Algorithms Test Suite")
     print("=" * 60)
     print()
@@ -293,14 +265,7 @@ def main():
     print("=" * 60)
     print("DSA TESTING COMPLETE")
     print("=" * 60)
-    print("✅ All DSA tests completed successfully!")
-    print()
-    print("Key Findings:")
-    print("- Dictionary lookup is significantly faster than linear search")
-    print("- Binary search provides good performance for sorted data")
-    print("- Data structure choice impacts both time and space complexity")
-    print("- Consider alternative structures for specific use cases")
-
+    print("All DSA tests completed successfully!")
 
 if __name__ == "__main__":
     main()

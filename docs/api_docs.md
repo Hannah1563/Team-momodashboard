@@ -2,37 +2,10 @@
 
 ## Overview
 
-The MoMo SMS Transaction API provides RESTful endpoints for managing mobile money transaction data. The API supports full CRUD operations with Basic Authentication security.
+The MoMo SMS Transaction API provides RESTful endpoints for managing mobile money transaction data. The API supports full CRUD operations with Basic Authentication.
 
 **Base URL:** `http://localhost:8000`  
 **Authentication:** Basic Authentication (username: `admin`, password: `password123`)
-
-## Authentication
-
-All endpoints require Basic Authentication. Include the `Authorization` header with base64-encoded credentials:
-
-```
-Authorization: Basic YWRtaW46cGFzc3dvcmQxMjM=
-```
-
-### Why Basic Auth is Weak
-
-Basic Authentication has several security limitations:
-
-1. **Credentials in Plain Text**: Credentials are base64-encoded (not encrypted) and can be easily decoded
-2. **No Session Management**: Each request requires credentials, increasing exposure risk
-3. **No Token Expiration**: Credentials remain valid until changed
-4. **Vulnerable to Replay Attacks**: Intercepted credentials can be reused
-5. **No Multi-Factor Authentication**: Single point of failure
-
-### Stronger Alternatives
-
-For production systems, consider these more secure alternatives:
-
-1. **JWT (JSON Web Tokens)**: Stateless tokens with expiration and digital signatures
-2. **OAuth 2.0**: Industry-standard authorization framework with scopes and refresh tokens
-3. **API Keys**: Unique keys with rotation capabilities
-4. **Multi-Factor Authentication**: Additional security layers
 
 ## Endpoints
 
