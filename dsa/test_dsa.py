@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 
 import os
-import sys
 import time
 from xml_parser import SMSDataParser
-from search_algorithms import TransactionSearch, PerformanceAnalyzer
+from search_algorithms import TransactionSearch
 
 
 def test_xml_parsing():
@@ -16,22 +15,18 @@ def test_xml_parsing():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     project_root = os.path.dirname(script_dir)
     xml_file_path = os.path.join(project_root, 'data', 'raw', 'modified_sms_v2.xml')
-    
-    print(f"Testing XML file: {xml_file_path}")
-    print()
-    
+        
     # Test XML parsing
     parser = SMSDataParser(xml_file_path)
     transactions = parser.parse_xml()
     
-    if transactions:
-        print(f"Successfully parsed {len(transactions)} transactions")
-        print()
-        
-        # Display sample transactions
-        print("Sample Transactions:")
+    print()
+
+    if transactions:        
+        # Display transactions
+        print("Transactions:")
         print("-" * 20)
-        for i, transaction in enumerate(transactions[:3]):
+        for i, transaction in enumerate(transactions):
             print(f"{i+1}. ID: {transaction['id']}, Type: {transaction['type']}, "
                   f"Amount: {transaction['amount']} {transaction['currency']}")
         print()
@@ -49,7 +44,7 @@ def test_search_algorithms(transactions):
     
     print()
     print("=" * 60)
-    print("SEARCH ALGORITHM PERFORMANCE TEST")
+    print("SEARCH ALGORITHM TEST")
     print("=" * 60)
     
     # Initialize search engine
@@ -103,19 +98,11 @@ def test_search_algorithms(transactions):
     binary_time = time.time() - start_time
     print(f"  Found {len(binary_results)} transactions in {binary_time:.8f}s")
     print()
-    
-    # Performance analysis
-    print("Performance Analysis:")
-    print("-" * 20)
-    analyzer = PerformanceAnalyzer(search_engine)
-    analyzer.measure_search_performance(num_tests=100)
-    analyzer.print_performance_report()
-
 
 def test_data_structures():
     print()
     print("=" * 60)
-    print("DATA STRUCTURE ANALYSIS")
+    print("DATA STRUCTURE TEST")
     print("=" * 60)
     
     # Get transactions
@@ -130,11 +117,10 @@ def test_data_structures():
         print("No transactions available for data structure testing")
         return
     
-    print(f"Analyzing {len(transactions)} transactions")
     print()
-    
+
     # List vs Dictionary comparison
-    print("Data Structure Comparison:")
+    print("Data Structures Comparison:")
     print("-" * 30)
     
     # List (linear search)
@@ -171,84 +157,8 @@ def test_data_structures():
     print(f"  Dictionary size: {dict_size} bytes")
     print(f"  Memory overhead: {dict_size - list_size} bytes")
     print()
-    
-    # Algorithm complexity analysis
-    print("Algorithm Complexity Analysis:")
-    print("-" * 35)
-    print("Linear Search:")
-    print("  - Time Complexity: O(n)")
-    print("  - Space Complexity: O(1)")
-    print("  - Best Case: O(1) - element at first position")
-    print("  - Worst Case: O(n) - element at last position")
-    print("  - Average Case: O(n/2)")
-    print()
-    
-    print("Dictionary Lookup:")
-    print("  - Time Complexity: O(1) average case")
-    print("  - Space Complexity: O(n)")
-    print("  - Best Case: O(1)")
-    print("  - Worst Case: O(n) - hash collision")
-    print("  - Average Case: O(1)")
-    print()
-    
-    print("Binary Search:")
-    print("  - Time Complexity: O(log n)")
-    print("  - Space Complexity: O(1)")
-    print("  - Requires: Sorted data")
-    print("  - Best Case: O(1)")
-    print("  - Worst Case: O(log n)")
-    print("  - Average Case: O(log n)")
-
-
-def demonstrate_alternative_structures():
-    print()
-    print("=" * 60)
-    print("ALTERNATIVE DATA STRUCTURES")
-    print("=" * 60)
-    
-    print("For improved performance, consider these alternatives:")
-    print()
-    
-    print("1. B-Tree:")
-    print("   - Balanced tree structure")
-    print("   - Efficient for range queries")
-    print("   - Good for large datasets")
-    print("   - Time Complexity: O(log n)")
-    print()
-    
-    print("2. Red-Black Tree:")
-    print("   - Self-balancing binary search tree")
-    print("   - Guarantees O(log n) operations")
-    print("   - Good for dynamic data")
-    print("   - Time Complexity: O(log n)")
-    print()
-    
-    print("3. Skip List:")
-    print("   - Probabilistic data structure")
-    print("   - Simple implementation")
-    print("   - Good average performance")
-    print("   - Time Complexity: O(log n)")
-    print()
-    
-    print("4. Trie (Prefix Tree):")
-    print("   - Efficient for prefix searches")
-    print("   - Good for phone number lookups")
-    print("   - Space-time tradeoff")
-    print("   - Time Complexity: O(m) where m is key length")
-    print()
-    
-    print("5. Hash Table with Chaining:")
-    print("   - Handles collisions gracefully")
-    print("   - Good average performance")
-    print("   - Simple implementation")
-    print("   - Time Complexity: O(1) average, O(n) worst case")
-
 
 def main():
-    print("MoMo SMS Data Structures & Algorithms Test Suite")
-    print("=" * 60)
-    print()
-    
     # Test XML parsing
     transactions = test_xml_parsing()
     
@@ -257,9 +167,6 @@ def main():
     
     # Test data structures
     test_data_structures()
-    
-    # Demonstrate alternatives
-    demonstrate_alternative_structures()
     
     print()
     print("=" * 60)

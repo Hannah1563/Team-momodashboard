@@ -38,24 +38,64 @@ class TransactionAPIHandler(BaseHTTPRequestHandler):
         except Exception:
             return False
 
-    def _handle_transaction_routes(self, path, parsed_url):
+    def do_GET(self):
         if not self._authenticate():
             self._send_error_response(401, "Unauthorized. Please provide valid Basic Authentication credentials.")
             return
+        
+        parsed_url = urllib.parse.urlparse(self.path)
+        path = parsed_url.path
         
         if path == '/transactions':
             self._handle_get_all_transactions()
         elif path.startswith('/transactions/'):
             transaction_id = self._get_transaction_id_from_path()
             if transaction_id:
-                if self.command == 'GET':
-                    self._handle_get_transaction(transaction_id)
-                elif self.command == 'PUT':
-                    self._handle_update_transaction(transaction_id)
-                elif self.command == 'DELETE':
-                    self._handle_delete_transaction(transaction_id)
-                else:
-                    self._send_error_response(405, "Method not allowed")
+                self._handle_get_transaction(transaction_id)
+            else:
+                self._send_error_response(400, "Invalid transaction ID format")
+        else:
+            self._send_error_response(404, "Endpoint not found")
+    
+    def do_POST(self):
+        if not self._authenticate():
+            self._send_error_response(401, "Unauthorized. Please provide valid Basic Authentication credentials.")
+            return
+        
+        if self.path == '/transactions':
+            self._handle_create_transaction()
+        else:
+            self._send_error_response(404, "Endpoint not found")
+    
+    def do_PUT(self):
+        if not self._authenticate():
+            self._send_error_response(401, "Unauthorized. Please provide valid Basic Authentication credentials.")
+            return
+        
+        parsed_url = urllib.parse.urlparse(self.path)
+        path = parsed_url.path
+        
+        if path.startswith('/transactions/'):
+            transaction_id = self._get_transaction_id_from_path()
+            if transaction_id:
+                self._handle_update_transaction(transaction_id)
+            else:
+                self._send_error_response(400, "Invalid transaction ID format")
+        else:
+            self._send_error_response(404, "Endpoint not found")
+    
+    def do_DELETE(self):
+        if not self._authenticate():
+            self._send_error_response(401, "Unauthorized. Please provide valid Basic Authentication credentials.")
+            return
+        
+        parsed_url = urllib.parse.urlparse(self.path)
+        path = parsed_url.path
+        
+        if path.startswith('/transactions/'):
+            transaction_id = self._get_transaction_id_from_path()
+            if transaction_id:
+                self._handle_delete_transaction(transaction_id)
             else:
                 self._send_error_response(400, "Invalid transaction ID format")
         else:

@@ -271,3 +271,17 @@ curl -u admin:password123 -X DELETE "http://localhost:8000/transactions/1"
   "message": "Transaction deleted successfully"
 }
 ```
+
+## Error Codes
+
+| Error Code              | Status | Description            | When It Occurs                                                  |
+| ----------------------- | ------ | ---------------------- | --------------------------------------------------------------- |
+| `HTTP_401`              | 401    | Unauthorized           | Missing or invalid Basic Authentication credentials             |
+| `HTTP_400`              | 400    | Bad Request            | Invalid JSON in request body                                    |
+| `HTTP_400`              | 400    | Missing Required Field | Missing required fields: `type`, `amount`, `sender`, `receiver` |
+| `HTTP_400`              | 400    | Invalid Data Format    | Invalid data type (e.g., non-numeric amount)                    |
+| `HTTP_400`              | 400    | Invalid Transaction ID | Non-numeric transaction ID in URL path                          |
+| `TRANSACTION_NOT_FOUND` | 404    | Transaction Not Found  | Transaction ID doesn't exist in the system                      |
+| `HTTP_404`              | 404    | Endpoint Not Found     | Request to non-existent API endpoint                            |
+| `HTTP_405`              | 405    | Method Not Allowed     | HTTP method not supported for the endpoint                      |
+| `HTTP_500`              | 500    | Internal Server Error  | Server-side processing error                                    |
