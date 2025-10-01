@@ -16,12 +16,50 @@ from search_algorithms import TransactionSearch  # pyright: ignore[reportMissing
 
 
 class TransactionAPIHandler(BaseHTTPRequestHandler):
-    
     def __init__(self, *args, **kwargs):
         # Load transaction data
         self.transactions = self._load_transaction_data()
         self.search_engine = TransactionSearch(self.transactions)
         super().__init__(*args, **kwargs)
+
+    def _authenticate(self) -> bool:
+        auth_header = self.headers.get('Authorization')
+        
+        if not auth_header or not auth_header.startswith('Basic '):
+            return False
+        
+        try:
+            encoded_credentials = auth_header[6:]
+            decoded_credentials = base64.b64decode(encoded_credentials).decode('utf-8')
+            username, password = decoded_credentials.split(':', 1)
+            
+            return username == 'admin' and password == 'password123'
+            
+        except Exception:
+            return False
+
+    def _handle_transaction_routes(self, path, parsed_url):
+        if not self._authenticate():
+            self._send_error_response(401, "Unauthorized. Please provide valid Basic Authentication credentials.")
+            return
+        
+        if path == '/transactions':
+            self._handle_get_all_transactions()
+        elif path.startswith('/transactions/'):
+            transaction_id = self._get_transaction_id_from_path()
+            if transaction_id:
+                if self.command == 'GET':
+                    self._handle_get_transaction(transaction_id)
+                elif self.command == 'PUT':
+                    self._handle_update_transaction(transaction_id)
+                elif self.command == 'DELETE':
+                    self._handle_delete_transaction(transaction_id)
+                else:
+                    self._send_error_response(405, "Method not allowed")
+            else:
+                self._send_error_response(400, "Invalid transaction ID format")
+        else:
+            self._send_error_response(404, "Endpoint not found")
     
     def _load_transaction_data(self) -> List[Dict[str, Any]]:
         try:
@@ -41,22 +79,6 @@ class TransactionAPIHandler(BaseHTTPRequestHandler):
         except Exception as e:
             print(f"Error loading transaction data: {e}")
             return []
-    
-    def _authenticate(self) -> bool:
-        auth_header = self.headers.get('Authorization')
-        
-        if not auth_header or not auth_header.startswith('Basic '):
-            return False
-        
-        try:
-            encoded_credentials = auth_header[6:]
-            decoded_credentials = base64.b64decode(encoded_credentials).decode('utf-8')
-            username, password = decoded_credentials.split(':', 1)
-            
-            return username == 'admin' and password == 'password123'
-            
-        except Exception:
-            return False
     
     def _send_response(self, status_code: int, data: Dict[str, Any]):   
         self.send_response(status_code)
@@ -108,69 +130,6 @@ class TransactionAPIHandler(BaseHTTPRequestHandler):
         except (ValueError, IndexError):
             pass
         return None
-    
-    def do_GET(self):
-        if not self._authenticate():
-            self._send_error_response(401, "Unauthorized. Please provide valid Basic Authentication credentials.")
-            return
-        
-        parsed_url = urllib.parse.urlparse(self.path)
-        path = parsed_url.path
-        
-        if path == '/transactions':
-            self._handle_get_all_transactions()
-        elif path.startswith('/transactions/'):
-            transaction_id = self._get_transaction_id_from_path()
-            if transaction_id:
-                self._handle_get_transaction(transaction_id)
-            else:
-                self._send_error_response(400, "Invalid transaction ID format")
-        else:
-            self._send_error_response(404, "Endpoint not found")
-    
-    def do_POST(self):
-        if not self._authenticate():
-            self._send_error_response(401, "Unauthorized. Please provide valid Basic Authentication credentials.")
-            return
-        
-        if self.path == '/transactions':
-            self._handle_create_transaction()
-        else:
-            self._send_error_response(404, "Endpoint not found")
-    
-    def do_PUT(self):
-        if not self._authenticate():
-            self._send_error_response(401, "Unauthorized. Please provide valid Basic Authentication credentials.")
-            return
-        
-        parsed_url = urllib.parse.urlparse(self.path)
-        path = parsed_url.path
-        
-        if path.startswith('/transactions/'):
-            transaction_id = self._get_transaction_id_from_path()
-            if transaction_id:
-                self._handle_update_transaction(transaction_id)
-            else:
-                self._send_error_response(400, "Invalid transaction ID format")
-        else:
-            self._send_error_response(404, "Endpoint not found")
-    
-    def do_DELETE(self):
-        if not self._authenticate():
-            self._send_error_response(401, "Unauthorized. Please provide valid Basic Authentication credentials.")
-            return
-        
-        parsed_url = urllib.parse.urlparse(self.path)
-        path = parsed_url.path
-        
-        if path.startswith('/transactions/'):
-            transaction_id = self._get_transaction_id_from_path()
-            if transaction_id:
-                self._handle_delete_transaction(transaction_id)
-            else:
-                self._send_error_response(400, "Invalid transaction ID format")
-        else:
-            self._send_error_response(404, "Endpoint not found")
     
     def _handle_get_all_transactions(self):
         try:

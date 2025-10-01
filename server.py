@@ -17,11 +17,7 @@ class ModularAPIHandler(TransactionAPIHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
     
-    def do_GET(self):
-        if not self._authenticate():
-            self._send_error_response(401, "Unauthorized. Please provide valid Basic Authentication credentials.")
-            return
-        
+    def do_GET(self):        
         parsed_url = urllib.parse.urlparse(self.path)
         path = parsed_url.path
         
@@ -32,10 +28,6 @@ class ModularAPIHandler(TransactionAPIHandler):
             self._send_error_response(404, "Endpoint not found")
     
     def do_POST(self):
-        if not self._authenticate():
-            self._send_error_response(401, "Unauthorized. Please provide valid Basic Authentication credentials.")
-            return
-        
         parsed_url = urllib.parse.urlparse(self.path)
         path = parsed_url.path
         
@@ -46,10 +38,6 @@ class ModularAPIHandler(TransactionAPIHandler):
             self._send_error_response(404, "Endpoint not found")
     
     def do_PUT(self):
-        if not self._authenticate():
-            self._send_error_response(401, "Unauthorized. Please provide valid Basic Authentication credentials.")
-            return
-        
         parsed_url = urllib.parse.urlparse(self.path)
         path = parsed_url.path
         
@@ -60,35 +48,12 @@ class ModularAPIHandler(TransactionAPIHandler):
             self._send_error_response(404, "Endpoint not found")
     
     def do_DELETE(self):
-        if not self._authenticate():
-            self._send_error_response(401, "Unauthorized. Please provide valid Basic Authentication credentials.")
-            return
-        
         parsed_url = urllib.parse.urlparse(self.path)
         path = parsed_url.path
         
         # Route to transaction module
         if path.startswith('/transactions'):
-            self._handle_transaction_routes(path, parsed_url)
-        else:
-            self._send_error_response(404, "Endpoint not found")
-    
-    def _handle_transaction_routes(self, path, parsed_url):
-        if path == '/transactions':
-            self._handle_get_all_transactions()
-        elif path.startswith('/transactions/'):
-            transaction_id = self._get_transaction_id_from_path()
-            if transaction_id:
-                if self.command == 'GET':
-                    self._handle_get_transaction(transaction_id)
-                elif self.command == 'PUT':
-                    self._handle_update_transaction(transaction_id)
-                elif self.command == 'DELETE':
-                    self._handle_delete_transaction(transaction_id)
-                else:
-                    self._send_error_response(405, "Method not allowed")
-            else:
-                self._send_error_response(400, "Invalid transaction ID format")
+            self._handle_transaction_routes(path)
         else:
             self._send_error_response(404, "Endpoint not found")
 
