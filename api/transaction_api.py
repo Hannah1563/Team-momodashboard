@@ -1,8 +1,4 @@
 #!/usr/bin/env python3
-"""
-REST API for MoMo SMS Transaction Data
-Implements CRUD endpoints with Basic Authentication
-"""
 
 import os
 import sys
@@ -10,7 +6,7 @@ import json
 import base64
 import urllib.parse
 from typing import Dict, Any, Optional, List
-from http.server import HTTPServer, BaseHTTPRequestHandler
+from http.server import BaseHTTPRequestHandler
 
 # Add the dsa directory to the path to import our modules
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'dsa'))
@@ -19,7 +15,8 @@ from xml_parser import SMSDataParser  # pyright: ignore[reportMissingImports]
 from search_algorithms import TransactionSearch  # pyright: ignore[reportMissingImports]
 
 
-class TransactionAPIHandler(BaseHTTPRequestHandler):    
+class TransactionAPIHandler(BaseHTTPRequestHandler):
+    
     def __init__(self, *args, **kwargs):
         # Load transaction data
         self.transactions = self._load_transaction_data()
@@ -111,13 +108,6 @@ class TransactionAPIHandler(BaseHTTPRequestHandler):
         except (ValueError, IndexError):
             pass
         return None
-    
-    def do_OPTIONS(self):
-        self.send_response(200)
-        self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-        self.send_header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-        self.end_headers()
     
     def do_GET(self):
         if not self._authenticate():
@@ -326,24 +316,3 @@ class TransactionAPIHandler(BaseHTTPRequestHandler):
             
         except Exception as e:
             self._send_error_response(500, f"Internal server error: {str(e)}")
-
-
-def run_server(port: int = 8000):
-    server_address = ('', port)
-    httpd = HTTPServer(server_address, TransactionAPIHandler)
-
-    try:
-        httpd.serve_forever()
-    except KeyboardInterrupt:
-        print("\nServer stopped.")
-        httpd.server_close()
-
-
-if __name__ == "__main__":
-    import argparse
-    
-    parser = argparse.ArgumentParser(description='MoMo SMS Transaction API Server')
-    parser.add_argument('--port', type=int, default=8000, help='Port to run the server on (default: 8000)')
-    
-    args = parser.parse_args()
-    run_server(args.port)

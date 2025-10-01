@@ -26,13 +26,15 @@ This application processes Mobile Money (MoMo) transaction data from SMS notific
 ```
 .
 ├── README.md                         # Setup, run, overview
+├── server.py                         # Main server entry point
 ├── requirements.txt                  # Python dependencies
 ├── data/
 │   ├── raw/                          # XML input data
 │   │   └── modified_sms_v2.xml       # Sample SMS transaction data
 │   └── processed/                    # Processed JSON outputs
-├── api/                              # REST API implementation
-│   ├── transaction_api.py            # Main API server with CRUD endpoints
+├── api/                              # REST API modules
+│   ├── __init__.py                   # API module initialization
+│   ├── transaction_api.py            # Transaction management API
 │   └── test_api.py                   # API testing suite
 ├── dsa/                              # Data Structures & Algorithms
 │   ├── xml_parser.py                 # XML parsing and JSON conversion
@@ -151,7 +153,7 @@ pip install -r requirements.txt
 ### 3. Run the API Server
 
 ```bash
-python api/transaction_api.py
+python server.py
 ```
 
 The API will start on `http://localhost:8000`
