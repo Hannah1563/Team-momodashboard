@@ -5,7 +5,7 @@
 **Team Name:** Team 7
 
 **Project Description:**
-An enterprise-level full-stack application designed to process MoMo SMS data in XML format, clean and categorize transactions, store data in a relational database, and provide a comprehensive frontend interface for data analysis and visualization.
+An enterprise-level full-stack application designed to process MoMo SMS data in XML format, clean and categorize transactions, store data in a relational database, and provide a comprehensive REST API with CRUD operations, authentication, and data structures & algorithms integration.
 
 **Team Members:**
 
@@ -15,7 +15,7 @@ An enterprise-level full-stack application designed to process MoMo SMS data in 
 
 ## Project Overview
 
-This application processes Mobile Money (MoMo) transaction data from SMS notifications in XML format, performing ETL operations to clean, normalize, and categorize the data before storing it in a SQLite database. The frontend provides interactive dashboards and visualizations for transaction analysis.
+This application processes Mobile Money (MoMo) transaction data from SMS notifications in XML format, performing ETL operations to clean, normalize, and categorize the data. The REST API provides secure access to transaction data with full CRUD operations, Basic Authentication, and efficient search algorithms demonstrating data structures & algorithms concepts.
 
 ## System Architecture
 
@@ -26,60 +26,62 @@ This application processes Mobile Money (MoMo) transaction data from SMS notific
 ```
 .
 ├── README.md                         # Setup, run, overview
-├── .env.example                      # DATABASE_URL or path to SQLite
-├── requirements.txt                  # lxml/ElementTree, dateutil, (FastAPI optional)
-├── index.html                        # Dashboard entry (static)
-├── web/
-│   ├── styles.css                    # Dashboard styling
-│   ├── chart_handler.js              # Fetch + render charts/tables
-│   └── assets/                       # Images/icons (optional)
+├── server.py                         # Main server entry point
+├── requirements.txt                  # Python dependencies
 ├── data/
-│   ├── raw/                          # Provided XML input (git-ignored)
-│   │   └── momo.xml
-│   ├── processed/                    # Cleaned/derived outputs for frontend
-│   │   └── dashboard.json            # Aggregates the dashboard reads
-│   ├── db.sqlite3                    # SQLite DB file
-│   └── logs/
-│       ├── etl.log                   # Structured ETL logs
-│       └── dead_letter/              # Unparsed/ignored XML snippets
-├── etl/
-│   ├── __init__.py
-│   ├── config.py                     # File paths, thresholds, categories
-│   ├── parse_xml.py                  # XML parsing (ElementTree/lxml)
-│   ├── clean_normalize.py            # Amounts, dates, phone normalization
-│   ├── categorize.py                 # Simple rules for transaction types
-│   ├── load_db.py                    # Create tables + upsert to SQLite
-│   └── run.py                        # CLI: parse -> clean -> categorize -> load -> export JSON
-├── api/                              # Optional (bonus)
-│   ├── __init__.py
-│   ├── app.py                        # Minimal FastAPI with /transactions, /analytics
-│   ├── db.py                         # SQLite connection helpers
-│   └── schemas.py                    # Pydantic response models
-├── scripts/
-│   ├── run_etl.sh                    # python etl/run.py --xml data/raw/momo.xml
-│   ├── export_json.sh                # Rebuild data/processed/dashboard.json
-│   └── serve_frontend.sh             # python -m http.server 8000 (or Flask static)
-└── tests/
-    ├── test_parse_xml.py             # Small unit tests
-    ├── test_clean_normalize.py
-    └── test_categorize.py
+│   ├── raw/                          # XML input data
+│   │   └── modified_sms_v2.xml       # Sample SMS transaction data
+│   └── processed/                    # Processed JSON outputs
+├── api/                              # REST API modules
+│   ├── __init__.py                   # API module initialization
+│   ├── transaction_api.py            # Transaction management API
+│   └── test_api.py                   # API testing suite
+├── dsa/                              # Data Structures & Algorithms
+│   ├── xml_parser.py                 # XML parsing and JSON conversion
+│   ├── search_algorithms.py          # Search algorithms implementation
+│   └── test_dsa.py                   # DSA testing and performance analysis
+├── docs/                             # Documentation
+│   ├── api_docs.md                   # Comprehensive API documentation
+│   ├── data_dictionary.md            # Database schema documentation
+│   ├── design_rationale.md            # Design decisions and rationale
+│   └── erd_diagram.png               # Entity relationship diagram
+├── database/                         # Database schema
+│   └── database_setup.sql             # MySQL database setup with sample data
+├── examples/                         # Example data and schemas
+│   └── json_schemas.json             # JSON schema examples
+└── screenshots/                      # API testing screenshots (to be added)
 ```
 
 ## Prerequisites
 
 - Python 3.8+
-- SQLite3
-- Modern web browser
+- Modern web browser (for testing)
+- curl or Postman (for API testing)
 
 ## Features
 
+### Core Functionality
+
 - **XML Data Processing:** Parse and validate MoMo SMS data from XML files
-- **Data Cleaning:** Normalize amounts, dates, and phone numbers
-- **Transaction Categorization:** Automatic categorization based on configurable rules
-- **Database Storage:** Efficient SQLite database with proper indexing
-- **Interactive Dashboard:** Web-based visualization and analytics
-- **RESTful API:** Optional API endpoints for data access
-- **Error Handling:** Comprehensive logging and dead letter queue for failed records
+- **REST API:** Full CRUD operations with Basic Authentication
+- **Data Structures & Algorithms:** Efficient search algorithms with performance analysis
+- **JSON Conversion:** Convert XML SMS records to JSON objects
+- **Error Handling:** Comprehensive error responses and validation
+
+### API Endpoints
+
+- **GET /transactions** - List all transactions with filtering and pagination
+- **GET /transactions/{id}** - Retrieve specific transaction by ID
+- **POST /transactions** - Create new transaction record
+- **PUT /transactions/{id}** - Update existing transaction
+- **DELETE /transactions/{id}** - Delete transaction record
+
+### Security Features
+
+- **Basic Authentication:** Username/password protection for all endpoints
+- **Input Validation:** Comprehensive data validation and sanitization
+- **CORS Support:** Cross-origin request handling
+- **Error Responses:** Standardized error codes and messages
 
 ## Scrum Board
 
@@ -133,12 +135,63 @@ Complete JSON schemas are provided for:
 - `docs/design_rationale.md` - Database design decisions and justifications
 - `docs/erd_diagram.png` - Visual entity relationship diagram
 
+## Quick Start
+
+### 1. Clone the Repository
+
+```bash
+git clone <repository-url>
+cd Team7-Momo
+```
+
+### 2. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Run the API Server
+
+```bash
+python server.py
+```
+
+The API will start on `http://localhost:8000`
+
+### 4. Test the API
+
+```bash
+# Test with curl
+curl -u admin:password123 http://localhost:8000/transactions
+
+# Or run the test suite
+python api/test_api.py
+```
+
+### 5. Test DSA Module
+
+```bash
+python dsa/test_dsa.py
+```
+
+### Environment Setup
+
+1. Ensure Python 3.8+ is installed
+2. Create a virtual environment (recommended):
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
 ## Technology Stack
 
-- **Backend:** Python 3.8+, FastAPI (optional)
-- **Database:** MySQL 8.0+ (Week 2), SQLite3 (Future implementation)
-- **Frontend:** HTML5, CSS3, JavaScript (Vanilla)
-- **Data Processing:** lxml/ElementTree, python-dateutil
-- **Visualization:** Chart.js or D3.js
-- **Testing:** pytest
+- **Backend:** Python 3.8+ with http.server
+- **Data Processing:** xml.etree.ElementTree, json
+- **Authentication:** Basic Authentication (base64)
+- **Testing:** requests library for API testing
+- **Documentation:** Markdown with comprehensive examples
 - **Version Control:** Git, GitHub
